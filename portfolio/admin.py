@@ -53,10 +53,10 @@ class FormacaoAdmin(admin.ModelAdmin):
 
 
 class TFCAdmin(admin.ModelAdmin):
-    list_display = ("titulo", "area", "estado", "prioridade", "ano", "aluno")
-    ordering = ("-ano",)
-    search_fields = ("titulo", "area")
-    list_filter = ("estado", "prioridade", "ano")
+    list_display = ("titulo", "licenciatura", "rating", "autores", "orientadores")
+    ordering = ("titulo", "rating")
+    search_fields = ("titulo", "licenciatura", "autores", "orientadores", "areas")
+    list_filter = ("licenciatura", "rating")
 
 
 class ProjetoAdmin(admin.ModelAdmin):
