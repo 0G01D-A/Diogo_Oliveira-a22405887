@@ -61,21 +61,20 @@ class Formacao(models.Model):
 
 
 class TFC(models.Model):
-    titulo = models.CharField(max_length=200)
-    area = models.CharField(max_length=100)
-    estado = models.CharField(max_length=50)
-    prioridade = models.CharField(max_length=50)
-    nivel_interesse = models.PositiveIntegerField()
-    descricao = models.TextField()
-    ano = models.PositiveIntegerField()
-    link_detalhes = models.URLField(null=True, blank=True)
-
-    orientador = models.ForeignKey(Professor, on_delete=models.CASCADE, related_name="tfcs")
-    aluno = models.OneToOneField(Aluno, on_delete=models.CASCADE, related_name="tfc")
+    titulo = models.CharField(max_length=255)
+    autores = models.TextField(blank=True)
+    orientadores = models.TextField(blank=True)
+    licenciatura = models.CharField(max_length=255, blank=True)
+    sumario = models.TextField(blank=True)
+    pdf = models.URLField(blank=True)
+    imagem = models.URLField(blank=True)
+    palavras_chave = models.TextField(blank=True)
+    areas = models.TextField(blank=True)
+    tecnologias_usadas = models.TextField(blank=True)
+    rating = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.titulo
-
 
 class Projeto(models.Model):
     nome = models.CharField(max_length=150)
