@@ -8,7 +8,7 @@ Criação do Diário de bordo
 
 ## 2. Fotografias do DER e Apontamentos
 
-![DER Final]()
+![DER Final](https://github.com/0G01D-A/Diogo_Oliveira-a22405887/blob/main/media/makingof/Modelo_entidade.jpeg)
 
 
 ---
