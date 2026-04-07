@@ -77,6 +77,20 @@ Principais melhorias:
 - Problema: ligações diretas incorretas
 - Correção: uso de tabelas associativas
 
+### Erro 2: Ajustes à modelação da entidade TFC
+
+Após análise do ficheiro JSON dos TFCs, verificou-se que a estrutura real dos dados não correspondia totalmente à modelação inicial. O ficheiro contém atributos como `autores`, `orientadores`, `licenciatura`, `sumario`, `pdf`, `imagem`, `palavras_chave`, `areas`, `tecnologias_usadas` e `rating`.
+
+Identifiquei várias diferenças relevantes:
+- o JSON não inclui os campos `estado`, `prioridade` e `aluno`
+- o ano surge embutido no campo `licenciatura`
+- os orientadores não aparecem estruturados como entidade relacionada, mas sim como texto
+- o nível de interesse está representado pelo campo `rating`
+
+Após as alterações necessárias, tudo ficou a funcionar como devia
+
+
+
 ---
 
 ## 5. Justificação das Decisões de Modelação
