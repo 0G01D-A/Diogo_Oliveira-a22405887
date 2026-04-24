@@ -3,9 +3,17 @@
 {% block content %}
 <h2>Tecnologias</h2>
 
+<p>
+    <a href="{% url 'tecnologia_create' %}">Criar nova tecnologia</a>
+</p>
+
 <section>
     {% for tecnologia in tecnologias %}
         <article>
+            <p>
+                <a href="{% url 'tecnologia_update' tecnologia.id %}">Editar</a>
+                <a href="{% url 'tecnologia_delete' tecnologia.id %}">Apagar</a>
+            </p>
             <h3>{{ tecnologia.nome }}</h3>
             <p>Categoria: {{ tecnologia.categoria }}</p>
 

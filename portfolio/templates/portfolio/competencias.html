@@ -3,9 +3,18 @@
 {% block content %}
 <h2>Competências</h2>
 
+<p>
+    <a href="{% url 'competencia_create' %}">Criar nova competência</a>
+</p>    
+
 <section>
     {% for competencia in competencias %}
         <article>
+
+            <p>
+                <a href="{% url 'competencia_update' competencia.id %}">Editar</a>
+                <a href="{% url 'competencia_delete' competencia.id %}">Apagar</a>
+            </p>
             <h3>{{ competencia.nome }}</h3>
             <p>Nível: {{ competencia.nivel }}</p>
             <p>Aluno: {{ competencia.aluno.nome }}</p>

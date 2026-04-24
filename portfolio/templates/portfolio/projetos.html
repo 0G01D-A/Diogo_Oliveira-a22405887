@@ -3,9 +3,17 @@
 {% block content %}
 <h2>Projetos</h2>
 
+<p>
+    <a href="{% url 'projeto_create' %}">Criar novo projeto</a>
+</p>
+
 <section>
     {% for projeto in projetos %}
         <article>
+            <p>
+                <a href="{% url 'projeto_update' projeto.id %}">Editar</a>
+                <a href="{% url 'projeto_delete' projeto.id %}">Apagar</a>
+            </p>
             <h3>{{ projeto.nome }}</h3>
             <p>UC: {{ projeto.uc.nome }}</p>
             <p>Curso: {{ projeto.uc.curso.nome }}</p>
