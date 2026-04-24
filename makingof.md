@@ -20,8 +20,8 @@ Criação do Diário de bordo
 
 Numa primeira fase, foram identificadas as entidades principais do sistema, nomeadamente:
 
-- Curso  
-- UnidadeCurricular    
+* Curso  
+* UnidadeCurricular    
 
 Os atributos definidos eram ainda básicos e focados na identificação (nome, descrição).  
 
@@ -31,13 +31,13 @@ Os atributos definidos eram ainda básicos e focados na identificação (nome, d
 
 Numa fase posterior, criei mais entidades como por exemplo:
 
-- Projetos  
-- Professor  
-- Aluno  
-- Inscrição
-- Tecnologias
-- Competência
-- Formações
+* Projetos  
+* Professor  
+* Aluno  
+* Inscrição
+* Tecnologias
+* Competência
+* Formações
 
 ---
 
@@ -48,44 +48,44 @@ Na versão final (representada no DER desenhado).
 Principais melhorias:
 
 - Estruturação completa das entidades:
-  - Projeto
-  - Tecnologia
-  - TFC
-  - Competência
-  - Formação
-  - Aluno
-  - Professor
-  - Unidade Curricular
-  - Curso
+  * Projeto
+  * Tecnologia
+  * TFC
+  * Competência
+  * Formação
+  * Aluno
+  * Professor
+  * Unidade Curricular
+  * Curso
 
 - Definição explícita das cardinalidades (1:N e N:M)
 
 - Criação de relações adequadas entre entidades, nomeadamente:
-  - Projeto ↔ Tecnologia (N:M)
-  - Projeto ↔ Aluno (N:M)
-  - Projeto ↔ Unidade Curricular (N:1)
-  - TFC ↔ Tecnologia (N:M)
-  - Formação ↔ Competência (N:M)
-  - Competência ↔ Projeto (N:M)
-  - 
+  * Projeto ↔ Tecnologia (N:M)
+  * Projeto ↔ Aluno (N:M)
+  * Projeto ↔ Unidade Curricular (N:1)
+  * TFC ↔ Tecnologia (N:M)
+  * Formação ↔ Competência (N:M)
+  * Competência ↔ Projeto (N:M)
+  * 
 ---
 
 ## 4. Erros Identificados e Correções
 
 
 ### Erro 1: Relações mal definidas
-- Problema: ligações diretas incorretas
-- Correção: uso de tabelas associativas
+* Problema: ligações diretas incorretas
+* Correção: uso de tabelas associativas
 
 ### Erro 2: Ajustes à modelação da entidade TFC
 
 Após análise do ficheiro JSON dos TFCs, verificou-se que a estrutura real dos dados não correspondia totalmente à modelação inicial. O ficheiro contém atributos como `autores`, `orientadores`, `licenciatura`, `sumario`, `pdf`, `imagem`, `palavras_chave`, `areas`, `tecnologias_usadas` e `rating`.
 
 Identifiquei várias diferenças relevantes:
-- o JSON não inclui os campos `estado`, `prioridade` e `aluno`
-- o ano surge embutido no campo `licenciatura`
-- os orientadores não aparecem estruturados como entidade relacionada, mas sim como texto
-- o nível de interesse está representado pelo campo `rating`
+* o JSON não inclui os campos `estado`, `prioridade` e `aluno`
+* o ano surge embutido no campo `licenciatura`
+* os orientadores não aparecem estruturados como entidade relacionada, mas sim como texto
+* o nível de interesse está representado pelo campo `rating`
 
 Após as alterações necessárias, tudo ficou a funcionar como devia
 
@@ -96,23 +96,23 @@ Após as alterações necessárias, tudo ficou a funcionar como devia
 ## 5. Justificação das Decisões de Modelação
 
 ### Projeto
-- Separação de tecnologias 
+* Separação de tecnologias 
 
 ### Tecnologia
-- Criação de entidade própria 
-- Inclusão de nível de conhecimento
+* Criação de entidade própria 
+* Inclusão de nível de conhecimento
 
 ### TFC
-- Uso de nível de interesse 
-- Ligação a professor 
+* Uso de nível de interesse 
+* Ligação a professor 
 
 ### Competência
-- Separação de tecnologia
-- Ligação a projetos 
+* Separação de tecnologia
+* Ligação a projetos 
 
 ### Formação
-- Uso de datas 
-- Classificação por tipo 
+* Uso de datas 
+* Classificação por tipo 
 
 ---
 
@@ -120,17 +120,17 @@ Após as alterações necessárias, tudo ficou a funcionar como devia
 
 O modelo final inclui as seguintes entidades:
 
-- Projeto
-- Tecnologia
-- TFC
-- Competência
-- Formação
-- Unidade Curricular
-- Professor
-- Inscrição
-- Aluno
-- Professor
-- Curso
+* Projeto
+* Tecnologia
+* TFC
+* Competência
+* Formação
+* Unidade Curricular
+* Professor
+* Inscrição
+* Aluno
+* Professor
+* Curso
 
 Com relações N:M e 1:N devidamente estruturadas.
 
@@ -194,9 +194,9 @@ select_related("uc", "curso")
 
 Cada modelo passou a ter:
 
-uma view dedicada
-uma query otimizada
-um template próprio
+* uma view dedicada
+* uma query otimizada
+* um template próprio
 
 Exemplo:
 ```python
@@ -214,14 +214,14 @@ lógica no template
 Foi criada uma estrutura base reutilizável:
 
 base.html com:
-header
-menu de navegação
-footer
-templates por entidade:
-cursos.html
-alunos.html
-professores.html
-etc.
+* header
+* menu de navegação
+* footer
+* templates por entidade:
+* cursos.html
+* alunos.html
+* professores.html
+* etc.
 
 Uso de:
 ```python
@@ -258,8 +258,8 @@ Para suportar imagens (ex: tecnologias):
 
 uso de ImageField
 configuração de:
-MEDIA_ROOT
-MEDIA_URL
+* MEDIA_ROOT
+* MEDIA_URL
 
 E no urls.py:
 ```python
@@ -280,23 +280,23 @@ Estrutura Implementada
 
 Para cada entidade foi criada uma estrutura completa composta por:
 
-View (views.py)
-Template (HTML)
-URL (routing)
+* View (views.py)
+* Template (HTML)
+* URL (routing)
 
 Este padrão foi aplicado de forma consistente a todos os modelos:
 
-Curso
-Unidade Curricular
-Professor
-Aluno
-Projeto
-TFC
-Tecnologia
-Competência
-Formação
-Inscrição
-Organização das Views
+* Curso
+* Unidade Curricular
+* Professor
+* Aluno
+* Projeto
+* TFC
+* Tecnologia
+* Competência
+* Formação
+* Inscrição
+* Organização das Views
 
 Cada entidade possui uma view dedicada responsável por:
 
@@ -338,16 +338,16 @@ Navegação do Portefólio
 
 Foi implementado um menu global que permite navegar entre todas as secções:
 
-Cursos
-UCs
-Professores
-Alunos
-Projetos
-TFCs
-Tecnologias
-Competências
-Formações
-Inscrições
+* Cursos
+* UCs
+* Professores
+* Alunos
+* Projetos
+* TFCs
+* Tecnologias
+* Competências
+* Formações
+* Inscrições
 
 Isto transformou o sistema num portefólio navegável e explorável.
 
@@ -372,3 +372,69 @@ navegar entre relações (ex: aluno → projetos → tecnologias)
 validar o modelo de dados de forma prática
 
 Deixou de ser apenas um modelo teórico, passando a ser um sistema funcional.
+
+
+
+## 15. Implementação de CRUD no Portefólio
+
+Após a construção das interfaces de consulta (listagem), foi implementado o conjunto de operações CRUD (Create, Read, Update, Delete) para as entidades:
+
+* Projeto
+* Tecnologia
+* Competência
+* Formação
+* Abordagem utilizada
+
+A implementação seguiu o padrão do Django:
+
+utilização de ModelForms
+criação de views específicas para cada operação
+uso de métodos do ORM:
+* get() → obter objeto
+* save() → criar/editar
+* delete() → apagar
+
+Exemplo:
+```python
+projeto = Projeto.objects.get(id=id)
+form = ProjetoForm(request.POST or None, instance=projeto)
+
+if form.is_valid():
+    form.save()
+```
+
+## 16. Dificuldades Encontradas
+1. Imports em falta
+
+Inicialmente surgiram erros (sublinhados amarelos) devido à ausência de imports como:
+```python
+from django.shortcuts import redirect
+from .forms import ProjetoForm
+```
+
+## 16. Erros Identificados
+* uso incorreto de .get() sem tratamento de erro
+* falta de configuração de MEDIA_URL
+* CSS inicialmente colocado na pasta errada (templates em vez de static)
+* páginas sem dados devido à base de dados vazia
+
+## 17. O que foi difícil de entender
+* diferença entre select_related() e prefetch_related()
+* funcionamento interno dos ModelForms
+* ciclo completo de uma request (request → view → template → response)
+* entender como funciona o CRUD
+
+
+## 18. Considerações sobre o Django
+
+O Django mostrou-se uma framework muito eficiente para:
+
+* desenvolvimento rápido de aplicações web
+* gestão de base de dados através de ORM
+* criação de interfaces CRUD com pouco código
+
+Permite passar rapidamente de:
+
+modelo de dados → aplicação funcional
+
+No entanto, exige compreensão da sua estrutura interna para evitar erros e más práticas.
