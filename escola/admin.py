@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import Escola
+from .models import Curso, Professor, Aluno
 
-# Register your models here.
-class EscolaAdmin(admin.ModelAdmin):
-    list_display = ("nome","localidade",)
-    ordering = ("nome","quantidade_alunos",)
-    search_fields = ("nome",)
+admin.site.register(Aluno)
+admin.site.register(Professor)
 
-admin.site.register(Escola,EscolaAdmin)
+class CursoAdmin(admin.ModelAdmin):
+    filter_horizontal = ('alunos',)  # permite adicionar mais facilmente alunos ao curso
+    
+admin.site.register(Curso, CursoAdmin)
