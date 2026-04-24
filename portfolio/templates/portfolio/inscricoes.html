@@ -1,0 +1,19 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Inscrições</h2>
+
+<section>
+    {% for inscricao in inscricoes %}
+        <article>
+            <h3>{{ inscricao.aluno.nome }}</h3>
+            <p>UC: {{ inscricao.uc.nome }}</p>
+            <p>Curso: {{ inscricao.uc.curso.nome }}</p>
+            <p>Data de inscrição: {{ inscricao.data_inscricao }}</p>
+            <p>Nota final: {{ inscricao.nota_final }}</p>
+        </article>
+    {% empty %}
+        <p>Não existem inscrições registadas.</p>
+    {% endfor %}
+</section>
+{% endblock %}

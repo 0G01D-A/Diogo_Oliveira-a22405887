@@ -1,0 +1,18 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Professores</h2>
+
+<section>
+    {% for professor in professores %}
+        <article>
+            <h3>{{ professor.nome }}</h3>
+            <p>Email: {{ professor.email }}</p>
+            <p>UC: {{ professor.uc.nome }}</p>
+            <p>Curso: {{ professor.uc.curso.nome }}</p>
+        </article>
+    {% empty %}
+        <p>Não existem professores registados.</p>
+    {% endfor %}
+</section>
+{% endblock %}

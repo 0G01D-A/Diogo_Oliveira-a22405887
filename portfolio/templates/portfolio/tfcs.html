@@ -1,0 +1,42 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>TFCs</h2>
+
+<section>
+    {% for tfc in tfcs %}
+        <article>
+            <h3>{{ tfc.titulo }}</h3>
+            <p>Licenciatura: {{ tfc.licenciatura }}</p>
+            <p>Autores: {{ tfc.autores }}</p>
+            <p>Orientadores: {{ tfc.orientadores }}</p>
+            <p>Rating: {{ tfc.rating }}</p>
+
+            {% if tfc.imagem %}
+                <img src="{{ tfc.imagem }}" alt="Imagem do TFC {{ tfc.titulo }}" width="200">
+            {% endif %}
+
+            <p>{{ tfc.sumario }}</p>
+
+            {% if tfc.pdf %}
+                <p><a href="{{ tfc.pdf }}">Ver PDF</a></p>
+            {% endif %}
+
+            <p>Palavras-chave: {{ tfc.palavras_chave }}</p>
+            <p>Áreas: {{ tfc.areas }}</p>
+            <p>Tecnologias usadas: {{ tfc.tecnologias_usadas }}</p>
+
+            <h4>Tecnologias associadas</h4>
+            <ul>
+                {% for tecnologia in tfc.tecnologias.all %}
+                    <li>{{ tecnologia.nome }}</li>
+                {% empty %}
+                    <li>Sem tecnologias associadas.</li>
+                {% endfor %}
+            </ul>
+        </article>
+    {% empty %}
+        <p>Não existem TFCs registados.</p>
+    {% endfor %}
+</section>
+{% endblock %}

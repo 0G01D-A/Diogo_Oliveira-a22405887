@@ -1,0 +1,35 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Alunos</h2>
+
+<section>
+    {% for aluno in alunos %}
+        <article>
+            <h3>{{ aluno.nome }}</h3>
+            <p>Email: {{ aluno.email }}</p>
+            <p>Data de nascimento: {{ aluno.data_nascimento }}</p>
+
+            <h4>Projetos</h4>
+            <ul>
+                {% for projeto in aluno.projetos.all %}
+                    <li>{{ projeto.nome }}</li>
+                {% empty %}
+                    <li>Sem projetos associados</li>
+                {% endfor %}
+            </ul>
+
+            <h4>Competências</h4>
+            <ul>
+                {% for competencia in aluno.competencias.all %}
+                    <li>{{ competencia.nome }} - {{ competencia.nivel }}</li>
+                {% empty %}
+                    <li>Sem competências registadas</li>
+                {% endfor %}
+            </ul>
+        </article>
+    {% empty %}
+        <p>Não existem alunos registados.</p>
+    {% endfor %}
+</section>
+{% endblock %}

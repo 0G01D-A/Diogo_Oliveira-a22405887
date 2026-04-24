@@ -1,0 +1,39 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Projetos</h2>
+
+<section>
+    {% for projeto in projetos %}
+        <article>
+            <h3>{{ projeto.nome }}</h3>
+            <p>UC: {{ projeto.uc.nome }}</p>
+            <p>Curso: {{ projeto.uc.curso.nome }}</p>
+            <p>Início: {{ projeto.data_inicio }}</p>
+            <p>Fim: {{ projeto.data_fim }}</p>
+            <p>Nota final: {{ projeto.nota_final }}</p>
+            <p>{{ projeto.descricao }}</p>
+
+            <h4>Alunos</h4>
+            <ul>
+                {% for aluno in projeto.alunos.all %}
+                    <li>{{ aluno.nome }}</li>
+                {% empty %}
+                    <li>Sem alunos associados.</li>
+                {% endfor %}
+            </ul>
+
+            <h4>Tecnologias</h4>
+            <ul>
+                {% for tecnologia in projeto.tecnologias.all %}
+                    <li>{{ tecnologia.nome }}</li>
+                {% empty %}
+                    <li>Sem tecnologias associadas.</li>
+                {% endfor %}
+            </ul>
+        </article>
+    {% empty %}
+        <p>Não existem projetos registados.</p>
+    {% endfor %}
+</section>
+{% endblock %}

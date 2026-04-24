@@ -1,0 +1,26 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Cursos</h2>
+
+<section>
+    {% for curso in cursos %}
+        <article>
+            <h3>{{ curso.nome }}</h3>
+            <p>Duração: {{ curso.duracao }} anos</p>
+            <p>ECTS: {{ curso.ects_total }}</p>
+
+            <h4>Unidades Curriculares</h4>
+            <ul>
+                {% for uc in curso.ucs.all %}
+                    <li>{{ uc.nome }}</li>
+                {% empty %}
+                    <li>Sem UCs associadas</li>
+                {% endfor %}
+            </ul>
+        </article>
+    {% empty %}
+        <p>Não existem cursos registados.</p>
+    {% endfor %}
+</section>
+{% endblock %}

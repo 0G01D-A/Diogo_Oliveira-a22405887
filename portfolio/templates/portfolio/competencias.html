@@ -1,0 +1,27 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Competências</h2>
+
+<section>
+    {% for competencia in competencias %}
+        <article>
+            <h3>{{ competencia.nome }}</h3>
+            <p>Nível: {{ competencia.nivel }}</p>
+            <p>Aluno: {{ competencia.aluno.nome }}</p>
+            <p>{{ competencia.descricao }}</p>
+
+            <h4>Formações associadas</h4>
+            <ul>
+                {% for formacao in competencia.formacoes.all %}
+                    <li>{{ formacao.nome }} — {{ formacao.instituicao }}</li>
+                {% empty %}
+                    <li>Sem formações associadas.</li>
+                {% endfor %}
+            </ul>
+        </article>
+    {% empty %}
+        <p>Não existem competências registadas.</p>
+    {% endfor %}
+</section>
+{% endblock %}
