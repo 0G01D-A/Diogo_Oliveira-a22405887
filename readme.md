@@ -1,4 +1,4 @@
 Diogo Oliveira 
 a22405887
-admin
-1234
+username - admin
+password - 1234
