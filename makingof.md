@@ -438,3 +438,139 @@ Permite passar rapidamente de:
 modelo de dados → aplicação funcional
 
 No entanto, exige compreensão da sua estrutura interna para evitar erros e más práticas.
+
+
+---
+
+## 19. Criação e organização de dados no Django Admin
+
+Foi utilizada a área de administração do Django para introduzir e organizar informação nas diferentes entidades do sistema.
+
+Foram adicionados dados relacionados com:
+
+* cursos
+* unidades curriculares
+* professores
+* alunos
+* projetos
+* tecnologias
+* competências
+* formações
+* inscrições
+
+Esta etapa foi importante porque permitiu testar se os modelos criados estavam corretamente estruturados e se as relações entre entidades funcionavam como esperado.
+
+---
+
+## 20. Adição de dados em Accounts/Education
+
+Foi também trabalhada a secção **Accounts/Education**, onde foi necessário adicionar a entrada correspondente ao professor indicado no enunciado.
+
+Dados utilizados:
+
+* Nome: `Your teacher`
+* Password: `pw25profs`
+
+Esta configuração permitiu cumprir um dos requisitos do trabalho e garantir que a informação necessária ficava registada no sistema.
+
+---
+
+## 21. Validação das relações entre entidades
+
+Depois de inserir os dados, foi feita a verificação das relações entre os diferentes modelos.
+
+Foram testadas ligações como:
+
+* cursos associados a unidades curriculares
+* professores associados a unidades curriculares
+* alunos associados a projetos
+* projetos associados a tecnologias
+* competências associadas a formações
+* tecnologias associadas a projetos e TFCs
+
+Esta validação foi essencial para confirmar que as relações `ForeignKey` e `ManyToManyField` estavam corretamente implementadas.
+
+---
+
+## 22. Correção e melhoria da navegação
+
+Foi revista a navegação entre as páginas do portefólio, garantindo que o utilizador consegue aceder às diferentes secções através do menu principal.
+
+A navegação permite consultar:
+
+* cursos
+* unidades curriculares
+* professores
+* alunos
+* projetos
+* TFCs
+* tecnologias
+* competências
+* formações
+* inscrições
+
+Esta melhoria tornou o portefólio mais organizado, funcional e fácil de utilizar.
+
+---
+
+## 23. Continuação da implementação do CRUD
+
+Foi dada continuidade à implementação das operações CRUD, permitindo criar, editar e apagar dados diretamente através da aplicação.
+
+O trabalho incidiu sobretudo nas entidades mais importantes do portefólio:
+
+* Projeto
+* Tecnologia
+* Competência
+* Formação
+
+A utilização de `ModelForms` permitiu simplificar a criação dos formulários e reaproveitar a estrutura dos modelos já definidos.
+
+---
+
+## 24. Testes realizados
+
+Foram realizados testes manuais para confirmar o funcionamento das páginas e das operações principais.
+
+Foram verificados os seguintes aspetos:
+
+* se as páginas carregavam corretamente
+* se os dados criados no Django Admin apareciam nos templates
+* se as relações entre entidades eram apresentadas corretamente
+* se os formulários guardavam os dados na base de dados
+* se a edição de objetos funcionava
+* se a eliminação de objetos era executada corretamente
+* se os ficheiros estáticos e imagens eram carregados corretamente
+
+Estes testes ajudaram a identificar pequenos problemas de configuração e a confirmar que a aplicação estava funcional.
+
+---
+
+## 25. Principais dificuldades encontradas hoje
+
+Durante esta fase surgiram algumas dificuldades, nomeadamente:
+
+* perceber onde inserir determinados dados no Django Admin
+* compreender a relação entre o enunciado e a estrutura real da aplicação
+* distinguir dados pertencentes ao portefólio de dados pertencentes à secção Accounts/Education
+* garantir que os nomes dos campos eram preenchidos exatamente como pedido
+* validar se os dados inseridos ficavam corretamente associados aos modelos
+
+Estas dificuldades foram ultrapassadas através da análise da estrutura do projeto, da verificação das entidades existentes e da utilização progressiva do Django Admin.
+
+---
+
+## 26. Resultado do trabalho realizado hoje
+
+No final desta etapa, o projeto ficou mais completo e funcional.
+
+Foi possível:
+
+* adicionar dados reais ao sistema
+* validar a estrutura dos modelos
+* testar a navegação entre páginas
+* continuar a implementação do CRUD
+* cumprir requisitos específicos do enunciado
+* reforçar a ligação entre a modelação teórica e a aplicação desenvolvida em Django
+
+Esta fase foi importante porque permitiu transformar o portefólio num sistema mais próximo de uma aplicação real, com dados inseridos, páginas navegáveis e funcionalidades de gestão.
