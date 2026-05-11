@@ -5,6 +5,7 @@ from .models import (
 )
 
 from .forms import ProjetoForm, TecnologiaForm, CompetenciaForm, FormacaoForm
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     return render(request, "portfolio/home.html")
@@ -32,13 +33,31 @@ def alunos_view(request):
 
 def competencias_view(request):
     competencias = Competencia.objects.select_related("aluno").prefetch_related("formacoes").all()
-    return render(request, "portfolio/competencias.html", {"competencias": competencias})
+
+    gestor_portfolio = (
+        request.user.is_authenticated and
+        request.user.groups.filter(name="gestor-portfolio").exists()
+    )
+
+    return render(request, "portfolio/competencias.html", {
+        "competencias": competencias,
+        "gestor_portfolio": gestor_portfolio
+    })
+
 
 
 def formacoes_view(request):
     formacoes = Formacao.objects.prefetch_related("competencias").all()
-    return render(request, "portfolio/formacoes.html", {"formacoes": formacoes})
 
+    gestor_portfolio = (
+        request.user.is_authenticated and
+        request.user.groups.filter(name="gestor-portfolio").exists()
+    )
+
+    return render(request, "portfolio/formacoes.html", {
+        "formacoes": formacoes,
+        "gestor_portfolio": gestor_portfolio
+    })
 
 def tfcs_view(request):
     tfcs = TFC.objects.prefetch_related("tecnologias").all()
@@ -47,19 +66,38 @@ def tfcs_view(request):
 
 def projetos_view(request):
     projetos = Projeto.objects.select_related("uc", "uc__curso").prefetch_related("alunos", "tecnologias").all()
-    return render(request, "portfolio/projetos.html", {"projetos": projetos})
+
+    gestor_portfolio = (
+        request.user.is_authenticated and
+        request.user.groups.filter(name="gestor-portfolio").exists()
+    )
+
+    return render(request, "portfolio/projetos.html", {
+        "projetos": projetos,
+        "gestor_portfolio": gestor_portfolio
+    })
 
 
 def tecnologias_view(request):
     tecnologias = Tecnologia.objects.select_related("projeto", "tfc").all()
-    return render(request, "portfolio/tecnologias.html", {"tecnologias": tecnologias})
+
+    gestor_portfolio = (
+        request.user.is_authenticated and
+        request.user.groups.filter(name="gestor-portfolio").exists()
+    )
+
+    return render(request, "portfolio/tecnologias.html", {
+        "tecnologias": tecnologias,
+        "gestor_portfolio": gestor_portfolio
+    })
+
 
 
 def inscricoes_view(request):
     inscricoes = Inscricao.objects.select_related("aluno", "uc", "uc__curso").all()
     return render(request, "portfolio/inscricoes.html", {"inscricoes": inscricoes})
 
-
+@login_required
 def projeto_create(request):
     form = ProjetoForm(request.POST or None)
 
@@ -72,7 +110,7 @@ def projeto_create(request):
         "titulo": "Criar Projeto"
     })
 
-
+@login_required
 def projeto_update(request, id):
     projeto = Projeto.objects.get(id=id)
 
@@ -87,7 +125,7 @@ def projeto_update(request, id):
         "titulo": "Editar Projeto"
     })
 
-
+@login_required
 def projeto_delete(request, id):
     projeto = Projeto.objects.get(id=id)
 
@@ -100,6 +138,7 @@ def projeto_delete(request, id):
         "titulo": "Apagar Projeto"
     })
 
+@login_required
 def tecnologia_create(request):
     form = TecnologiaForm(request.POST or None, request.FILES or None)
 
@@ -112,7 +151,7 @@ def tecnologia_create(request):
         "titulo": "Criar Tecnologia"
     })
 
-
+@login_required
 def tecnologia_update(request, id):
     tecnologia = Tecnologia.objects.get(id=id)
 
@@ -127,7 +166,7 @@ def tecnologia_update(request, id):
         "titulo": "Editar Tecnologia"
     })
 
-
+@login_required
 def tecnologia_delete(request, id):
     tecnologia = Tecnologia.objects.get(id=id)
 
@@ -140,7 +179,7 @@ def tecnologia_delete(request, id):
         "titulo": "Apagar Tecnologia"
     })
 
-
+@login_required
 def competencia_create(request):
     form = CompetenciaForm(request.POST or None)
 
@@ -153,7 +192,7 @@ def competencia_create(request):
         "titulo": "Criar Competência"
     })
 
-
+@login_required
 def competencia_update(request, id):
     competencia = Competencia.objects.get(id=id)
 
@@ -168,7 +207,7 @@ def competencia_update(request, id):
         "titulo": "Editar Competência"
     })
 
-
+@login_required
 def competencia_delete(request, id):
     competencia = Competencia.objects.get(id=id)
 
@@ -181,7 +220,7 @@ def competencia_delete(request, id):
         "titulo": "Apagar Competência"
     })
 
-
+@login_required
 def formacao_create(request):
     form = FormacaoForm(request.POST or None)
 
@@ -194,7 +233,7 @@ def formacao_create(request):
         "titulo": "Criar Formação"
     })
 
-
+@login_required
 def formacao_update(request, id):
     formacao = Formacao.objects.get(id=id)
 
@@ -209,7 +248,7 @@ def formacao_update(request, id):
         "titulo": "Editar Formação"
     })
 
-
+@login_required
 def formacao_delete(request, id):
     formacao = Formacao.objects.get(id=id)
 
@@ -221,3 +260,6 @@ def formacao_delete(request, id):
         "objeto": formacao,
         "titulo": "Apagar Formação"
     })
+
+def is_gestor_portfolio(user):
+    return user.groups.filter(name="gestor-portfolio").exists()

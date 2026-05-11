@@ -1,0 +1,61 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<article>
+    <h2>{{ artigo.titulo }}</h2>
+
+    <p>Autor: {{ artigo.autor.username }}</p>
+    <p>Data: {{ artigo.data_criacao }}</p>
+
+    {% if artigo.fotografia %}
+        <img src="{{ artigo.fotografia.url }}" alt="Imagem do artigo {{ artigo.titulo }}">
+    {% endif %}
+
+    <p>{{ artigo.texto }}</p>
+
+    {% if artigo.link_externo %}
+        <p>
+            <a href="{{ artigo.link_externo }}" target="_blank">Link externo</a>
+        </p>
+    {% endif %}
+
+    <p>Likes: {{ artigo.total_likes }}</p>
+
+    <form method="post" action="{% url 'artigo_like' artigo.id %}">
+        {% csrf_token %}
+        <button type="submit">Gostar / Remover gosto</button>
+    </form>
+
+    {% if request.user == artigo.autor and is_autor %}
+        <p>
+            <a href="{% url 'artigo_update' artigo.id %}">Editar</a>
+            <a href="{% url 'artigo_delete' artigo.id %}">Apagar</a>
+        </p>
+    {% endif %}
+</article>
+
+<section>
+    <h3>Comentários</h3>
+
+    {% for comentario in comentarios %}
+        <article>
+            <p>{{ comentario.texto }}</p>
+            <p>Por: {{ comentario.autor.username }} — {{ comentario.data_criacao }}</p>
+        </article>
+    {% empty %}
+        <p>Ainda não existem comentários.</p>
+    {% endfor %}
+
+    {% if request.user.is_authenticated %}
+        <h4>Adicionar comentário</h4>
+
+        <form method="post" action="{% url 'comentario_create' artigo.id %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Comentar</button>
+        </form>
+    {% else %}
+        <p>Para comentar, faz login.</p>
+    {% endif %}
+</section>
+{% endblock %}

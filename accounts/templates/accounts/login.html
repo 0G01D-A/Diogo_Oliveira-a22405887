@@ -1,0 +1,51 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Login</h2>
+
+{% if mensagem %}
+    <p class="erro">{{ mensagem }}</p>
+{% endif %}
+
+<section>
+    <article>
+        <h3>Entrar com username e password</h3>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <p>
+                <label>Username:</label>
+                <input type="text" name="username" required>
+            </p>
+
+            <p>
+                <label>Password:</label>
+                <input type="password" name="password" required>
+            </p>
+
+            <button type="submit">Entrar</button>
+        </form>
+    </article>
+
+    <article>
+        <h3>Entrar com link mágico</h3>
+
+        <form method="post" action="{% url 'magic_login_request' %}">
+            {% csrf_token %}
+
+            <p>
+                <label>Email:</label>
+                <input type="email" name="email" required>
+            </p>
+
+            <button type="submit">Enviar link mágico</button>
+        </form>
+    </article>
+</section>
+
+<p>
+    Ainda não tens conta?
+    <a href="{% url 'registo' %}">Registar</a>
+</p>
+{% endblock %}

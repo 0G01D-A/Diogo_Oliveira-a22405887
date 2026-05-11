@@ -3,18 +3,15 @@
 {% block content %}
 <h2>Competências</h2>
 
-<p>
-    <a href="{% url 'competencia_create' %}">Criar nova competência</a>
-</p>    
+{% if request.user.is_authenticated and gestor_portfolio %}
+    <p>
+        <a href="{% url 'competencia_create' %}">Criar nova competência</a>
+    </p>
+{% endif %}
 
 <section>
     {% for competencia in competencias %}
         <article>
-
-            <p>
-                <a href="{% url 'competencia_update' competencia.id %}">Editar</a>
-                <a href="{% url 'competencia_delete' competencia.id %}">Apagar</a>
-            </p>
             <h3>{{ competencia.nome }}</h3>
             <p>Nível: {{ competencia.nivel }}</p>
             <p>Aluno: {{ competencia.aluno.nome }}</p>
@@ -28,6 +25,13 @@
                     <li>Sem formações associadas.</li>
                 {% endfor %}
             </ul>
+
+            {% if request.user.is_authenticated and gestor_portfolio %}
+                <p>
+                    <a href="{% url 'competencia_update' competencia.id %}">Editar</a>
+                    <a href="{% url 'competencia_delete' competencia.id %}">Apagar</a>
+                </p>
+            {% endif %}
         </article>
     {% empty %}
         <p>Não existem competências registadas.</p>

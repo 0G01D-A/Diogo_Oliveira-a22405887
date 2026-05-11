@@ -1,0 +1,28 @@
+{% extends "estudo/base.html" %}
+
+{% block content %}
+<h2>Desportos e atletas</h2>
+
+<section>
+    {% for desporto in desportos %}
+        <article>
+            <h3>{{ desporto.nome }}</h3>
+
+            <h4>Atletas</h4>
+            <ul>
+                {% for atleta in ordenar_idade.all %}
+                    <li>
+                        {{ atleta.nome }}
+                        <a href="{% url 'edita_atleta' atleta.id %}">Editar</a>
+                    </li>
+                {% empty %}
+                    <li>Sem cursos associados</li>
+                {% endfor %}
+            </ul>
+            <li></li>
+        </article>
+    {% empty %}
+        <p>Não existem desportos registados.</p>
+    {% endfor %}
+</section>
+{% endblock %}

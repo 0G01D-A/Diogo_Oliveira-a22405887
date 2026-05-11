@@ -11,10 +11,19 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+import environ
 
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': env('CLOUDINARY_API_KEY'),
+    'API_SECRET': env('CLOUDINARY_API_SECRET'),
+}
 
 
 # Quick-start development settings - unsuitable for production
@@ -45,11 +54,16 @@ INSTALLED_APPS = [
     'loja',
     'festivais',
     'portfolio',
-
+    'estudo',
+    'accounts',
+    'artigos',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -82,10 +96,7 @@ WSGI_APPLICATION = "project.wsgi.application"
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": env.db("DATABASE_URL")
 }
 
 
@@ -126,11 +137,35 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# settings.py
 
-import os
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
+# URL pública para aceder aos ficheiros
+MEDIA_URL = '/media/'
 
 # Pasta no servidor onde os ficheiros vão ser guardados
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# URL pública para aceder aos ficheiros
-MEDIA_URL = '/media/'
+
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'portfolio_home'
+LOGOUT_REDIRECT_URL = 'portfolio_home'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = "diogomanueloliveira1@gmail.com"
+EMAIL_HOST_PASSWORD = "ecjd zrzc hupz tchy"
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+

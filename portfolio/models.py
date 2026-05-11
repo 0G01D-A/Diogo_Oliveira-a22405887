@@ -112,3 +112,4 @@ class Inscricao(models.Model):
 
     def __str__(self):
         return f"{self.aluno.nome} - {self.uc.nome}"
+        

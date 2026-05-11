@@ -3,18 +3,15 @@
 {% block content %}
 <h2>Formações</h2>
 
-<p>
-    <a href="{% url 'formacao_create' %}">Criar nova formação</a>
-</p>
+{% if request.user.is_authenticated and gestor_portfolio %}
+    <p>
+        <a href="{% url 'formacao_create' %}">Criar nova formação</a>
+    </p>
+{% endif %}
 
 <section>
     {% for formacao in formacoes %}
         <article>
-
-            <p>
-                <a href="{% url 'formacao_update' formacao.id %}">Editar</a>
-                <a href="{% url 'formacao_delete' formacao.id %}">Apagar</a>
-            </p>
             <h3>{{ formacao.nome }}</h3>
             <p>Instituição: {{ formacao.instituicao }}</p>
             <p>Início: {{ formacao.data_inicio }}</p>
@@ -28,6 +25,13 @@
                     <li>Sem competências associadas.</li>
                 {% endfor %}
             </ul>
+
+            {% if request.user.is_authenticated and gestor_portfolio %}
+                <p>
+                    <a href="{% url 'formacao_update' formacao.id %}">Editar</a>
+                    <a href="{% url 'formacao_delete' formacao.id %}">Apagar</a>
+                </p>
+            {% endif %}
         </article>
     {% empty %}
         <p>Não existem formações registadas.</p>
